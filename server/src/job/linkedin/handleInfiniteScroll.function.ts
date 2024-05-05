@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer'
+import { Page } from 'puppeteer-core'
 import {
   ACTIVE_INFINITE_SCROLL_BUTTON,
   DOCUMENT_SCROLL_HEIGHT,

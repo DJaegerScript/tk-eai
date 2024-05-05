@@ -36,6 +36,6 @@
     "express": "^4.19.2",
     "mongoose": "^8.3.3",
     "node-cron": "^3.0.3",
-    "puppeteer": "^22.7.1"
+    "puppeteer-core": "^22.7.1"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schedule": "48 19 * * *",
+  "schedule": "15 20 * * *",
   "professions": ["Programmer", "Data", "Network", "Cyber Security"],
   "limitation": "2 month",
   "base-urls": {

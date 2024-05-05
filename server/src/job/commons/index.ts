@@ -1,9 +1,10 @@
-import puppeteer from 'puppeteer'
 import { loadUserAgent } from '../../config'
+import puppeteer from 'puppeteer-core'
 
 export const initPuppeteer = async (url: string) => {
-  const browser = await puppeteer.launch({
+  const browser = await puppeteer.connect({
     defaultViewport: null,
+    browserWSEndpoint: process.env.BROWSER_WS_ENDPOINT,
   })
 
   const [page] = await browser.pages()

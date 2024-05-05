@@ -1,4 +1,4 @@
-import { ElementHandle } from 'puppeteer'
+import { ElementHandle } from 'puppeteer-core'
 import Job from '../../database/models/job'
 
 export const save = async (scrapedJobs: ElementHandle<HTMLLIElement>[]) => {
