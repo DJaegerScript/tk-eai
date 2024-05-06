@@ -23,7 +23,8 @@ export const getAllJobs = async (req: Request, res: Response) => {
   }
 
   const jobs = await Job.find(filter, null, { skip, limit: LIMIT })
-  const totalJob = (await Job.aggregate().count('*'))[0]['*']
+  const aggregation = await Job.aggregate().count('*')
+  const totalJob = aggregation.length > 0 ? aggregation[0]['*'] : 0
 
   const totalPages = Math.ceil(totalJob / LIMIT)
 
