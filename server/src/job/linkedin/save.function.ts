@@ -1,7 +1,12 @@
 import { ElementHandle } from 'puppeteer-core'
 import Job from '../../database/models/job'
+import Company from '../../database/models/company'
+import Location from '../../database/models/location'
 
-export const save = async (scrapedJobs: ElementHandle<HTMLLIElement>[]) => {
+export const save = async (
+  profession: string,
+  scrapedJobs: ElementHandle<HTMLLIElement>[]
+) => {
   console.log('Saving the scrapped job...')
   let totalSaved = 0
   for (const job of scrapedJobs) {
@@ -11,8 +16,7 @@ export const save = async (scrapedJobs: ElementHandle<HTMLLIElement>[]) => {
       )
 
       const url = rawUrl?.split('?')[0]
-
-      const existingJobs = await Job.find({ url: url })
+      const existingJobs = await Job.find({ url })
       if (existingJobs.length > 0) {
         continue
       }
@@ -20,19 +24,33 @@ export const save = async (scrapedJobs: ElementHandle<HTMLLIElement>[]) => {
       const title = await job.$eval('.base-search-card__title', (element) =>
         element.textContent?.trim()
       )
+
       const company = await job.$eval('.hidden-nested-link', (element) =>
         element.textContent?.trim()
       )
+      const existingCompanies = await Company.find({ name: company })
+      if (existingCompanies.length === 0) {
+        const companyModel = new Company({ name: company })
+        await companyModel.save()
+      }
+
       const location = await job.$eval(
         '.job-search-card__location',
         (element) => element.textContent?.trim()
       )
+      const existingLocations = await Location.find({ name: location })
+      if (existingLocations.length === 0) {
+        const locationModel = new Location({ name: location })
+        await locationModel.save()
+      }
+
       const date = await job.$eval('time', (element) =>
         element.getAttribute('datetime')
       )
 
       const jobModel = new Job({
         title,
+        profession,
         date,
         location,
         company,

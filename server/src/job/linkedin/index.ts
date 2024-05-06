@@ -41,7 +41,7 @@ const scrapeLinkedIn = async () => {
       console.log(`${jobTabs.length} ${profession} jobs have been scrapped!`)
       scrappedJobs += jobTabs.length
 
-      const savedJob = await save(jobTabs)
+      const savedJob = await save(profession, jobTabs)
       savedJobs += savedJob
 
       await browser.close()
