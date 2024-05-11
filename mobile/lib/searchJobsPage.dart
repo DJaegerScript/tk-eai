@@ -124,6 +124,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
           Padding(
             padding: const EdgeInsets.all(12),
             child:TextFormField(
+              initialValue: _title,
               decoration: InputDecoration(
                 labelText: "Pekerjaan",
                 filled: true,
@@ -142,6 +143,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextFormField(
+              initialValue: _location,
               decoration: InputDecoration(
                 labelText: "Lokasi",
                 fillColor: Colors.white,
@@ -159,6 +161,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextFormField(
+              initialValue: _company,
               decoration: InputDecoration(
                 labelText: "Perusahaan",
                 filled: true,
