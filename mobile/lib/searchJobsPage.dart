@@ -99,6 +99,10 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
               onChanged: (value) {_profession = value!;},
               items: const [
                 DropdownMenuItem(
+                  value: "",
+                  child: Text("All")
+                ),
+                DropdownMenuItem(
                   value: "Programmer",
                   child: Text("Programmer")
                 ),
