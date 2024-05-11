@@ -11,8 +11,8 @@ class SearchJobsPage extends StatefulWidget {
 }
 
 class _SearchJobsPageState extends State<SearchJobsPage> {
-  DateTime dateFilter = DateTime.now();
-  TextEditingController dateController = TextEditingController();
+  DateTime _dateFilter = DateTime.now();
+  TextEditingController _dateController = TextEditingController();
   bool _isFilterVisible = true;
   final ScrollController _scrollController = ScrollController();
 
@@ -27,7 +27,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
 
   bool _hasNextPage = false;
   bool _hasPrevPage = false;
-  bool _hasNoResult = false;
+  bool _hasResult = false;
 
   void _getJobsData() async {
     Map<String, dynamic> _fetchedData = await fetchJobsData(_title, _profession, _location, _company, _date, _page.toString());
@@ -37,10 +37,10 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
       _hasPrevPage = _fetchedData["hasPrev"];
       _isFilterVisible = false;
 
-      if (_jobsData.length <= 0) {
-        _hasNoResult = true;
+      if (_jobsData.length > 0) {
+        _hasResult = true;
       } else {
-        _hasNoResult = false;
+        _hasResult = false;
       }
     });
     _scrollController.jumpTo(_scrollController.position.minScrollExtent);
@@ -54,10 +54,10 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
         lastDate: DateTime.now());
     if (picked != null) {
       setState(() {
-        dateFilter = picked;
+        _dateFilter = picked;
         var date =
             "${picked.toLocal().day}/${picked.toLocal().month}/${picked.toLocal().year}";
-        dateController.text = date;
+        _dateController.text = date;
       });
     }
   }
@@ -187,7 +187,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 )
               ),
               readOnly: true,
-              controller: dateController,
+              controller: _dateController,
               onChanged: (value) {_date = value;},
           )),
 
@@ -277,6 +277,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
               ),
 
               ..._jobsData.map((JobDataModel e) => Card(
+                  color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.all(20),
                     child: Column(
@@ -308,7 +309,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
               ).toList(),
 
               Visibility(
-                visible: _hasNoResult,
+                visible: !_hasResult,
                 child: const Center(
                   child: Text(
                     "Tidak ditemukan pekerjaan terkait",
@@ -336,6 +337,40 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                       }
                     )
                   ),
+
+                  Visibility(
+                    visible: _hasResult,
+                    child: Padding(
+                      padding: EdgeInsets.all(12),
+                        child: SizedBox(
+                        width: 60,
+                        height: 30,
+                        child: TextFormField(
+                          initialValue: _page.toString(),
+                          onChanged: (value) {
+                            if (value != "" && int.tryParse(value) != null) {
+                              int temp = int.tryParse(value)!;
+                              if(temp >= 1) {
+                                _page = temp;
+                                _getJobsData();
+                              }
+                            }
+                          },
+                          style: TextStyle(fontSize: 17.0, height: 1, color: Colors.white),
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(1.0),
+                              borderSide: BorderSide(width: 1,color: Colors.white),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(1.0),
+                            )
+                          ),
+                        ),
+                      ),
+                    )
+                  ),
+
                   Visibility(
                     visible: _hasNextPage,
                     child: IconButton(
