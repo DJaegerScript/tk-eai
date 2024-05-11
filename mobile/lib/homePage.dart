@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
           ),
+          
           Expanded(
             child: GridView.count(
               crossAxisCount: 2,
@@ -68,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(right:20, top:20),
                   child: InkWell(
@@ -96,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(left:20, bottom:20),
                   child: InkWell(
@@ -124,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(right:20, bottom:20),
                   child: InkWell(
