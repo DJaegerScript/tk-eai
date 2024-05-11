@@ -1,9 +1,14 @@
 import { ElementHandle } from 'puppeteer-core'
 import { Job, Company, Location } from '../../database/models'
+import { differenceInMilliseconds, differenceInMonths } from 'date-fns'
+
+export const loadLinkedinUrl = (baseUrl: string, profession: string) =>
+  `${baseUrl}?keywords=${profession}`
 
 export const save = async (
   profession: string,
-  scrapedJobs: ElementHandle<HTMLLIElement>[]
+  scrapedJobs: ElementHandle<HTMLLIElement>[],
+  limitation: Date
 ) => {
   console.log('Saving the scrapped job...')
   let totalSaved = 0
@@ -26,6 +31,13 @@ export const save = async (
       const company = await job.$eval('.hidden-nested-link', (element) =>
         element.textContent?.trim()
       )
+      const date = await job.$eval('time', (element) =>
+        element.getAttribute('datetime')
+      )
+      if (limitation > new Date(date!)) {
+        continue
+      }
+
       const existingCompanies = await Company.find({ name: company })
       if (existingCompanies.length === 0) {
         const companyModel = new Company({ name: company })
@@ -41,10 +53,6 @@ export const save = async (
         const locationModel = new Location({ name: location })
         await locationModel.save()
       }
-
-      const date = await job.$eval('time', (element) =>
-        element.getAttribute('datetime')
-      )
 
       const jobModel = new Job({
         title,

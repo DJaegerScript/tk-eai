@@ -1,57 +1,35 @@
-import { initPuppeteer } from '../commons'
-import { loadLimitation, loadUrl } from '../../config'
-import config from '../../config/config.json'
-import { handleInfiniteScroll } from './handleInfiniteScroll.function'
-import { save } from './save.function'
+import { Site } from '../interface'
+import { Page } from 'puppeteer-core'
+import { save } from './util'
+import { handleInfiniteScroll, handleLoadButton } from '../commons'
 
-const scrapeLinkedIn = async () => {
-  try {
-    console.log('Scraping LinkedIn...')
-    const startTime = Date.now()
+const scrapeLinkedIn = async (
+  site: Site,
+  page: Page,
+  profession: string,
+  limitation: Date
+) => {
+  await page.waitForSelector('.jobs-search__results-list')
 
-    const professions = config['professions']
-    const limitation = loadLimitation('linkedin')
-    if (!limitation) {
-      throw Error("Limitation isn't configured")
-    }
+  await handleInfiniteScroll(page, site.value)
 
-    let scrappedJobs = 0
-    let savedJobs = 0
-    for (const profession of professions) {
-      console.log(`Scrapping ${profession} job in LinkedIn...`)
-      const url = loadUrl(profession, limitation, 'linkedin')
-      if (!url) {
-        throw Error("Site isn't supported")
-      }
+  await handleLoadButton(page, site.value)
 
-      const { page, browser } = await initPuppeteer(url)
+  const searchResult = await page.$('.jobs-search__results-list')
 
-      await page.waitForSelector('.jobs-search__results-list')
+  if (!searchResult) {
+    throw new Error('Search result element not found')
+  }
 
-      await handleInfiniteScroll(page)
+  const jobs = await searchResult.$$('li')
 
-      const searchResult = await page.$('.jobs-search__results-list')
+  console.log(`${jobs.length} ${profession} jobs have been scrapped!`)
 
-      if (!searchResult) {
-        throw new Error('Search result element not found')
-      }
+  const savedJobs = await save(profession, jobs, limitation)
 
-      const jobTabs = await searchResult.$$('li')
-
-      console.log(`${jobTabs.length} ${profession} jobs have been scrapped!`)
-      scrappedJobs += jobTabs.length
-
-      const savedJob = await save(profession, jobTabs)
-      savedJobs += savedJob
-
-      await browser.close()
-    }
-
-    console.log(
-      `${savedJobs}/${scrappedJobs} scrapped jobs on LinkedIn were successfully saved with the execution time of ${(Date.now() - startTime) / 60000} minutes`
-    )
-  } catch (e) {
-    console.log(e)
+  return {
+    scrappedJobs: jobs.length,
+    savedJobs,
   }
 }
 
