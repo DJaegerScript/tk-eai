@@ -1,5 +1,7 @@
 import scrapeLinkedIn from './linkedin'
 import { loadLinkedinUrl } from './linkedin/util'
+import scrapeKalibrr from './kalibrr'
+import { loadKalibrrUrl } from './kalibrr/util'
 
 export const BASE_URLS: { [key: string]: string } = {
   linkedin: 'https://www.linkedin.com/jobs/search',
@@ -8,8 +10,7 @@ export const BASE_URLS: { [key: string]: string } = {
 
 export const INFINITE_SCROLL_BUTTON: { [key: string]: string } = {
   linkedin: '.infinite-scroller__show-more-button--visible',
-  kalibrr:
-    'div.k-font-dm-sans.k-rounded-lg.k-bg-white.k-border-solid.k-border.hover:k-border-2.hover:k-border-primary-color.k-border.k-group.k-flex.k-flex-col.k-justify-between.css-1otdiuc',
+  kalibrr: '.k-font-dm-sans.k-w-full.k-flex.k-justify-center.k-mb-10 button',
 }
 
 export const DOCUMENT_SCROLL_HEIGHT = 'document.body.scrollHeight'
@@ -22,5 +23,13 @@ export const SITES = [
     },
     loadUrlCallback: loadLinkedinUrl,
     scrapeCallback: scrapeLinkedIn,
+  },
+  {
+    site: {
+      label: 'Kalibrr',
+      value: 'kalibrr',
+    },
+    loadUrlCallback: loadKalibrrUrl,
+    scrapeCallback: scrapeKalibrr,
   },
 ]

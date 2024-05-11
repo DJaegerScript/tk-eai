@@ -28,15 +28,16 @@ export const save = async (
         element.textContent?.trim()
       )
 
-      const company = await job.$eval('.hidden-nested-link', (element) =>
-        element.textContent?.trim()
-      )
       const date = await job.$eval('time', (element) =>
         element.getAttribute('datetime')
       )
       if (limitation > new Date(date!)) {
         continue
       }
+
+      const company = await job.$eval('.hidden-nested-link', (element) =>
+        element.textContent?.trim()
+      )
 
       const existingCompanies = await Company.find({ name: company })
       if (existingCompanies.length === 0) {
