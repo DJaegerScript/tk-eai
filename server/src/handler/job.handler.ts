@@ -6,17 +6,17 @@ export const getAllJobs = async (req: Request, res: Response) => {
   const page = parseInt((req.query.page as string) || '1')
   const title = req.query.title
   const profession = req.query.profession
-  const date = req.query.date
-    ? new Date(req.query.date as string).getDate()
-    : null
+  const date = req.query.date ? new Date(req.query.date as string) : null
   const location = req.query.location
   const company = req.query.company
 
   const skip = (page - 1) * LIMIT
 
   const filter = {
-    ...(title && { title }),
-    ...(profession && { profession }),
+    ...(title && { title: new RegExp(`/${title}/`.slice(1, -1)) }),
+    ...(profession && {
+      profession: new RegExp('^' + (profession as string).toLowerCase(), 'i'),
+    }),
     ...(date && { date }),
     ...(location && { location }),
     ...(company && { company }),
