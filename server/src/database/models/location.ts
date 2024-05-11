@@ -7,6 +7,4 @@ const locationSchema = new mongoose.Schema({
   },
 })
 
-const Location = mongoose.model('Location', locationSchema)
-
-export default Location
+export const Location = mongoose.model('Location', locationSchema)

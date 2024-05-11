@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import Job from '../database/models/job'
 import { LIMIT } from './constant'
+import { Company, Job, Location } from '../database/models'
 
 export const getAllJobs = async (req: Request, res: Response) => {
   const page = parseInt((req.query.page as string) || '1')
@@ -34,5 +34,21 @@ export const getAllJobs = async (req: Request, res: Response) => {
       hasNext: page < totalPages,
       hasPrev: page > 1,
     },
+  })
+}
+
+export const getLocations = async (req: Request, res: Response) => {
+  const locations = await Location.find()
+
+  res.json({
+    locations: locations.map(({ id, name }) => ({ id, name })),
+  })
+}
+
+export const getCompanies = async (req: Request, res: Response) => {
+  const companies = await Company.find()
+
+  res.json({
+    companies: companies.map(({ id, name }) => ({ id, name })),
   })
 }

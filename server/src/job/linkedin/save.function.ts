@@ -1,7 +1,5 @@
 import { ElementHandle } from 'puppeteer-core'
-import Job from '../../database/models/job'
-import Company from '../../database/models/company'
-import Location from '../../database/models/location'
+import { Job, Company, Location } from '../../database/models'
 
 export const save = async (
   profession: string,
