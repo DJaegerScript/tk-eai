@@ -87,7 +87,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -129,7 +129,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -147,7 +147,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -166,7 +166,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -185,7 +185,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
