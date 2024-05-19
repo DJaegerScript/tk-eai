@@ -10,14 +10,13 @@ export interface JobPostingAttributes {
   }
   export interface QueryInterface {
     title: string[];
-    profession: string[];
+    profession?: string;
     date?: string;
     location: string[];
     company: string[];
   }
   export const DefaultQuery: QueryInterface = {
     title: [],
-    profession: [],
     location: [],
     company: [],
   };

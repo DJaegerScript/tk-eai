@@ -13,7 +13,7 @@ export const Filter: FC<{ setQuery: React.Dispatch<QueryInterface>; query: Query
         <div className="w-full">
           <label className="md:text-lg mb-2 text-gray-200 font-semibold text-center">Nama Pekerjaan</label>
           <input
-            className="w-full text-black"
+            className="w-full text-black px-2 py-1"
             onChange={(e) =>
               setQuery({
                 ...query,
@@ -29,7 +29,7 @@ export const Filter: FC<{ setQuery: React.Dispatch<QueryInterface>; query: Query
         </label>
         <div className="w-full">
           <input
-            className="w-full text-black px-2 py-0.5"
+            className="w-full text-black px-2 py-1"
             type="date"
             onChange={(e: any) => {
               console.log(e.target.value);
@@ -59,7 +59,7 @@ export const Filter: FC<{ setQuery: React.Dispatch<QueryInterface>; query: Query
         <label className="md:text-lg mb-2 text-gray-200 font-semibold">Lokasi</label>
         <div className="w-full">
           <input
-            className="w-full text-black"
+            className="w-full text-black px-2 py-1"
             onChange={(e) =>
               setQuery({
                 ...query,
@@ -73,7 +73,7 @@ export const Filter: FC<{ setQuery: React.Dispatch<QueryInterface>; query: Query
         <label className="md:text-lg mb-2 text-gray-200 font-semibold">Perusahaan</label>
         <div className="w-full">
           <input
-            className="w-full text-black"
+            className="w-full text-black px-2 py-1"
             onChange={(e) =>
               setQuery({
                 ...query,
