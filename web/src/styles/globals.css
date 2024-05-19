@@ -31,3 +31,31 @@ body {
     text-wrap: balance;
   }
 }
+
+.left-aligned {
+  text-align: left;
+}
+
+.container mx-auto flex flex-col md:flex-row items-center justify-center {
+  font-family: 'Raleway', sans-serif;
+}
+
+.flex flex-col justify-center items-center md:mr-8 py-30 md:py-30 {
+  font-family: 'Raleway', sans-serif;
+}
+
+.text-xl font-bold text-white left-aligned {
+  font-family: 'Raleway', sans-serif;
+}
+
+.text-lg leading-6 text-white text-center mx-4 left-aligned {
+  font-family: 'Raleway', sans-serif;
+}
+
+.flex flex-wrap justify-center mt-2 md:mt-0 {
+  font-family: 'Raleway', sans-serif;
+}
+
+.h-9 w-18 mr-4 {
+  font-family: 'Raleway', sans-serif;
+}

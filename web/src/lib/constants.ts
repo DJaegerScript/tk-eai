@@ -1,4 +1,4 @@
-export const TitleOptions = [
+export const ProfessionOptions = [
     {
       value: "Programmer",
       label: "Programmer",

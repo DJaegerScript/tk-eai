@@ -23,6 +23,11 @@ export default function Home() {
     try {
       const result = await fetch("https://tk-eai-production.up.railway.app/" + queryBuilder(query), {
         method: "GET",
+        // headers: {
+        //   "Access-Control-Allow-Origin": "*", // Consider restricting this in production
+        //   "Content-Type": "application/json"
+        // }
+        mode: 'no-cors'  // Not recommended for production
       });
       const resultData = await result.json();
       console.log(resultData);
@@ -32,6 +37,8 @@ export default function Home() {
       console.error(error);
     }
   };
+  
+  
   return (
     <>
       <Head>
@@ -43,8 +50,8 @@ export default function Home() {
       <nav className="fixed top-0 left-0 z-10 flex items-center justify-between w-full px-8 py-4 text-gray-900 bg-white border-b border-gray-400 md:px-16">
         <div className="flex items-center">
           <button type="button">
-            <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7 2 2M3 12l4 4v3h3a2 2 0 0 0 2-2v-3z" />
+          <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7 2 2M3 12l4 4v3h3a2 2 0 0 0 2-2v-3z" />
             </svg>
           </button>
           <div className="hidden md:flex gap-x-4 ml-4">
@@ -69,9 +76,10 @@ export default function Home() {
         </button>
       </nav>
 
-
-      <main id="search" className="bg-gray-900 text-white min-h-screen w-full p-8 md:p-16 md:pt-8 mt-10">
-        <Filter setQuery={setQuery} query={query} />
+      <main id="search" className="bg-gradient-to-r from-purple-700 to-blue-400 text-white min-h-screen w-full p-8 md:p-16 md:pt-8 mt-10">
+        <div className="mt-10">
+          <Filter setQuery={setQuery} query={query} />
+        </div>
         <div className="w-full flex items-center justify-center my-10">
           <div
             onClick={onSearch}
@@ -80,8 +88,10 @@ export default function Home() {
             Cari Pekerjaan
           </div>
         </div>
-        <div className="text-gray-300 font-medium  text-sm mb-2">{`Ditemukan ${data.length} Pekerjaan Terkait`}</div>
         {data.length > 0 && (
+          <div className="text-gray-300 font-medium text-sm mb-2">{`Ditemukan ${data.length} Pekerjaan Terkait`}</div>
+        )}
+        {data.length > 0 ? (
           <section>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {data.map((x, idx) => (
@@ -89,13 +99,16 @@ export default function Home() {
               ))}
             </div>
           </section>
+        ) : (
+          <div className="text-gray-300 font-medium text-sm">Tidak ditemukan pekerjaan terkait.</div>
         )}
+
+
       </main>
       <footer id="footer" className="w-full bg-gray-800 text-white p-8 md:p-16 pb-10">
-        <ul className="list-disc">
-          <li>Syifa Afra Kamila Mumtaz - Adjie Djaka Permana - Adillah Putri</li>
-        </ul>
+        <p>Syifa Afra Kamila Mumtaz - Adjie Djaka Permana - Adillah Putri</p>
       </footer>
     </>
   );
 }
+
