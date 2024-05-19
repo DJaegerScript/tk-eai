@@ -11,8 +11,7 @@ class SearchJobsPage extends StatefulWidget {
 }
 
 class _SearchJobsPageState extends State<SearchJobsPage> {
-  DateTime _dateFilter = DateTime.now();
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
   bool _isFilterVisible = true;
   final ScrollController _scrollController = ScrollController();
 
@@ -30,14 +29,14 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
   bool _hasResult = false;
 
   void _getJobsData() async {
-    Map<String, dynamic> _fetchedData = await fetchJobsData(_title, _profession, _location, _company, _date, _page.toString());
+    Map<String, dynamic> fetchedData = await fetchJobsData(_title, _profession, _location, _company, _date, _page.toString());
     setState(() {
-      _jobsData = _fetchedData["data"];
-      _hasNextPage = _fetchedData["hasNext"];
-      _hasPrevPage = _fetchedData["hasPrev"];
+      _jobsData = fetchedData["data"];
+      _hasNextPage = fetchedData["hasNext"];
+      _hasPrevPage = fetchedData["hasPrev"];
       _isFilterVisible = false;
 
-      if (_jobsData.length > 0) {
+      if (_jobsData.isNotEmpty) {
         _hasResult = true;
       } else {
         _hasResult = false;
@@ -54,10 +53,9 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
         lastDate: DateTime.now());
     if (picked != null) {
       setState(() {
-        _dateFilter = picked;
-        var date =
-            "${picked.toLocal().day}/${picked.toLocal().month}/${picked.toLocal().year}";
-        _dateController.text = date;
+        _date =
+            "${picked.toLocal().year}/${picked.toLocal().month}/${picked.toLocal().day}";
+        _dateController.text = _date;
       });
     }
   }
@@ -89,7 +87,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -131,7 +129,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -149,7 +147,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -168,7 +166,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -187,7 +185,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -208,7 +206,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                   _getJobsData();
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 47, 156, 228),
+                  backgroundColor: const Color.fromARGB(255, 47, 156, 228),
                 ),
                 child: const Text(
                   "Search",
@@ -233,7 +231,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
           "EAI Job Scrapper",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(255, 47, 156, 228),
+        backgroundColor: const Color.fromARGB(255, 47, 156, 228),
       ),
       body: Center(
         child: Container(
@@ -262,7 +260,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                   height: 45,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 47, 156, 228),
+                      backgroundColor: const Color.fromARGB(255, 47, 156, 228),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(30),
@@ -286,7 +284,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
               ..._jobsData.map((JobDataModel e) => Card(
                   color: Colors.white,
                   child: Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,7 +311,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                     ),
                   )
                 )
-              ).toList(),
+              ),
 
               Visibility(
                 visible: !_hasResult,
@@ -348,7 +346,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                   Visibility(
                     visible: _hasResult,
                     child: Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                         child: SizedBox(
                         width: 60,
                         height: 30,
@@ -363,11 +361,11 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                               }
                             }
                           },
-                          style: TextStyle(fontSize: 17.0, height: 1, color: Colors.white),
+                          style: const TextStyle(fontSize: 17.0, height: 1, color: Colors.white),
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(1.0),
-                              borderSide: BorderSide(width: 1,color: Colors.white),
+                              borderSide: const BorderSide(width: 1,color: Colors.white),
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(1.0),
