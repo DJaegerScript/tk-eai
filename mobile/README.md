@@ -1,6 +1,6 @@
 # job_scrapper
 
-A new Flutter project.
+Firebase App Distribution invitation: [https://appdistribution.firebase.dev/i/b13763092da41656](https://appdistribution.firebase.dev/i/b13763092da41656)
 
 ## Getting Started
 
