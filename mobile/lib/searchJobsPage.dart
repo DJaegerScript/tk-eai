@@ -87,7 +87,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -129,7 +129,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -147,7 +147,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -166,7 +166,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -185,7 +185,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(width: 1,color: Color.fromARGB(255, 47, 156, 228)),
+                  borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -206,7 +206,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                   _getJobsData();
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 47, 156, 228),
+                  backgroundColor: Colors.black,
                 ),
                 child: const Text(
                   "Search",
@@ -225,13 +225,13 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.white
+          color: Colors.black
         ),
         title: const Text(
           "EAI Job Scrapper",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color.fromARGB(255, 47, 156, 228),
+        backgroundColor: Colors.white
       ),
       body: Center(
         child: Container(
@@ -240,8 +240,8 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Colors.white,
-                Color.fromARGB(255, 47, 156, 228),
+                Color.fromRGBO(148, 35, 206, 1),
+                Color.fromRGBO(96, 164, 250, 1),
               ],
             )
           ),
@@ -260,7 +260,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                   height: 45,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 47, 156, 228),
+                      backgroundColor: Colors.black,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(30),
@@ -319,7 +319,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                   child: Text(
                     "Tidak ditemukan pekerjaan terkait",
                     style: TextStyle(
-                      color: Color.fromARGB(255, 47, 156, 228), 
+                      color: Colors.white, 
                       fontSize: 20,
                       fontWeight: FontWeight.bold
                     ),
