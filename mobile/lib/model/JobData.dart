@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class JobDataModel {
   String title;
   String profession;
@@ -21,7 +23,7 @@ class JobDataModel {
     return JobDataModel(
       title: json["title"],
       profession: json["profession"],
-      date: json["date"],
+      date: DateFormat("yyyy-MM-dd").format(DateTime.parse(json["date"])),
       location: json["location"],
       company: json["company"],
       source: json["source"],
