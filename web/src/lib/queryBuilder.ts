@@ -8,11 +8,9 @@ export function queryBuilder(data: QueryInterface): string {
       res = `${res}title=${str}&`;
     });
   }
-  // if (data.profession.length > 0) {
-  //   data.profession.forEach((str) => {
-  //     res = `${res}profession=${str}&`;
-  //   });
-  // }
+  if (data.profession) {
+    res = `${res}professio=${data.profession}&`;
+  }
   if (data.location.length > 0) {
     data.location.forEach((str) => {
       res = `${res}location=${str}&`;

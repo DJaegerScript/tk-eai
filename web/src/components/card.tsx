@@ -3,24 +3,29 @@ import { FC } from "react";
 
 export const Card: FC<JobPostingAttributes> = ({ profession, company, location, source, title, url, date }) => {
   return (
-    <a href={url} target="_blank" className="rounded-lg bg-gray-700 border border-gray-600 px-4 py-2 text-sm block">
-      <div>
-        <h4 className="text-lg">{title}</h4>
-        <h6 className="">{profession}</h6>
-        <h6 className="">{company}</h6>
-        <div className="border-b border-gray-600 w-full" />
-        <p>
-          Lokasi : <span>{location}</span>
-        </p>
-        <p>
-          Sumber : <span>{source}</span>
-        </p>
-        {date && (
-          <p>
-            Tanggal Publikasi : <span>{new Date(date).toLocaleDateString()}</span>
+    <div className="card-container">
+      <div className="card">
+        <a className="card1" href={url}>
+          <span className="badge badge-light">{profession}</span>  <p className="title font-semibold mt-2">{title}</p>  
+          <p className="small">Perusahaan : <span>{company}</span>
           </p>
-        )}
+          
+          <p className="small">
+          Lokasi : <span>{location}</span>
+          </p >
+          <p className="small">
+              Tanggal Publikasi : <span>{new Date(date).toLocaleDateString()}</span>
+          </p>
+          <p className="small">
+          Sumber : <span>{source}</span>
+          </p>
+          <a className="go-corner" href={url}>
+            <div className="go-arrow">
+              →
+            </div>
+          </a>
+        </a>
       </div>
-    </a>
+    </div>
   );
 };

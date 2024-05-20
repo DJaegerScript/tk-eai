@@ -31,7 +31,7 @@ export default function Home({ query, setQuery }: Props) {
     <div className="min-h-screen bg-gradient-to-r from-purple-700 to-blue-400 flex flex-col justify-center items-center">
       <Navbar />
       {/* Container for Content and Category Buttons */}
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-center">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-center flex-grow">
       {/* Container 1: Content */}
         <div className="flex flex-col md:mr-10 md:ml-20 md:mt-7">
           <h1 className="left-aligned font-bold text-4xl leading-6 text-white mx-4">EAI Job Scrapper</h1>
@@ -68,6 +68,9 @@ export default function Home({ query, setQuery }: Props) {
           </div>
         </div>
       </div>
+      <footer id="footer" className="w-full bg-gray-800 text-white p-8 md:p-6 pb-10 text-center">
+        <p>Syifa Afra Kamila Mumtaz - Adjie Djaka Permana - Adillah Putri</p>
+      </footer>
     </div>
   );
 }

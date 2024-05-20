@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
 import { useEffect, useState } from "react";
 import { DefaultQuery, JobPostingAttributes, QueryInterface } from "@/lib/model";
 import { Filter } from "@/components/filter";
@@ -24,25 +23,22 @@ export default function Home() {
   useEffect(() => {
     console.log(query);
   }, [query]);
+
   const onSearch = async () => {
     try {
-      const result = await fetch("https://tk-eai-production.up.railway.app/" + queryBuilder(query), {
+      const result = await fetch(`https://tk-eai-production.up.railway.app/?${queryBuilder(query)}`, {
         method: "GET",
-        // headers: {
-        //   "Access-Control-Allow-Origin": "*", // Consider restricting this in production
-        //   "Content-Type": "application/json"
-        // }
-        mode: 'no-cors'  // Not recommended for production
+        mode: "no-cors",
       });
+      console.log(result)
       const resultData = await result.json();
       console.log(resultData);
       setData(resultData);
     } catch (error) {
-      console.log("EROR");
+      console.log("ERROR");
       console.error(error);
     }
   };
-  
   
   return (
     <>
@@ -55,7 +51,7 @@ export default function Home() {
         <div className="w-full flex items-center justify-center my-10">
           <div
             onClick={onSearch}
-            className="rounded-lg border-2 border-gray-200 cursor-pointer text-gray-200 px-6 py-3 font-bold text-xl"
+            className="button-20 rounded-lg border-2 border-gray-200 cursor-pointer text-gray-200 px-6 py-3 font-bold text-xl"
           >
             Cari Pekerjaan
           </div>
@@ -72,11 +68,35 @@ export default function Home() {
             </div>
           </section>
         ) : (
-          <div className="text-gray-300 font-medium text-sm">Tidak ditemukan pekerjaan terkait.</div>
+          <div className="text-gray-300 font-medium text-sm"></div> //Tidak ditemukan pekerjaan terkait.
         )}
+        {/* <div className="card-container">
+          <div className="card">
+            <a className="card1" href="https://www.linkedin.com/jobs/view/junior-react-developer-at-team-remotely-inc-3918716707">
+              <span className="badge badge-light">Programmer</span>  <p className="title font-semibold mt-2">Title</p>  
+              <p className="small">Perusahaan : <span>Tokopedia</span>
+              </p>
+             
+              <p className="small">
+              Lokasi : <span>location</span>
+              </p >
+              <p className="small">
+                  Tanggal Publikasi : <span>{new Date("2024").toLocaleDateString()}</span>
+              </p>
+              <p className="small">
+              Sumber : <span>https://www.linkedin.com/jobs/view/junior-react-developer-at-team-remotely-inc-3918716707</span>
+              </p>
+              <a className="go-corner" href="{url}">
+                <div className="go-arrow">
+                  →
+                </div>
+              </a>
+            </a>
+          </div>
+          </div> */}
 
       </main>
-      <footer id="footer" className="w-full bg-gray-800 text-white p-8 md:p-16 pb-10">
+      <footer id="footer" className="w-full bg-gray-800 text-white p-8 md:p-6 pb-10 text-center">
         <p>Syifa Afra Kamila Mumtaz - Adjie Djaka Permana - Adillah Putri</p>
       </footer>
     </>
