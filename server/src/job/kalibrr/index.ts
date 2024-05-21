@@ -4,23 +4,35 @@ import { handleLoadButton } from '../commons'
 import { save } from './util'
 
 const scrapeKalibrr = async (
-  site: Site,
-  page: Page,
+  url: string,
   profession: string,
-  limitation: Date
+  limitation: Date,
+  site?: Site,
+  page?: Page
 ) => {
-  await page.waitForSelector('div.css-1otdiuc')
+  if (!!site && !!page) {
+    await page.goto(url, {
+      waitUntil: 'domcontentloaded',
+    })
 
-  await handleLoadButton(page, site.value)
+    await page.waitForSelector('div.css-1otdiuc')
 
-  const jobs = await page.$$('div.css-1otdiuc')
-  console.log(`${jobs.length} ${profession} jobs have been scrapped!`)
+    await handleLoadButton(page, site.value)
 
-  const savedJobs = await save(profession, jobs, limitation)
+    const jobs = await page.$$('div.css-1otdiuc')
+    console.log(`${jobs.length} ${profession} jobs have been scrapped!`)
+
+    const savedJobs = await save(profession, jobs, limitation)
+
+    return {
+      scrappedJobs: jobs.length,
+      savedJobs,
+    }
+  }
 
   return {
-    scrappedJobs: jobs.length,
-    savedJobs,
+    scrappedJobs: 0,
+    savedJobs: 0,
   }
 }
 

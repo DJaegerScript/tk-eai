@@ -4,32 +4,44 @@ import { save } from './util'
 import { handleInfiniteScroll, handleLoadButton } from '../commons'
 
 const scrapeLinkedIn = async (
-  site: Site,
-  page: Page,
+  url: string,
   profession: string,
-  limitation: Date
+  limitation: Date,
+  site?: Site,
+  page?: Page
 ) => {
-  await page.waitForSelector('.jobs-search__results-list')
+  if (!!site && !!page) {
+    await page.goto(url, {
+      waitUntil: 'domcontentloaded',
+    })
 
-  await handleInfiniteScroll(page, site.value)
+    await page.waitForSelector('.jobs-search__results-list')
 
-  await handleLoadButton(page, site.value)
+    await handleInfiniteScroll(page, site.value)
 
-  const searchResult = await page.$('.jobs-search__results-list')
+    await handleLoadButton(page, site.value)
 
-  if (!searchResult) {
-    throw new Error('Search result element not found')
+    const searchResult = await page.$('.jobs-search__results-list')
+
+    if (!searchResult) {
+      throw new Error('Search result element not found')
+    }
+
+    const jobs = await searchResult.$$('li')
+
+    console.log(`${jobs.length} ${profession} jobs have been scrapped!`)
+
+    const savedJobs = await save(profession, jobs, limitation)
+
+    return {
+      scrappedJobs: jobs.length,
+      savedJobs,
+    }
   }
 
-  const jobs = await searchResult.$$('li')
-
-  console.log(`${jobs.length} ${profession} jobs have been scrapped!`)
-
-  const savedJobs = await save(profession, jobs, limitation)
-
   return {
-    scrappedJobs: jobs.length,
-    savedJobs,
+    scrappedJobs: 0,
+    savedJobs: 0,
   }
 }
 

@@ -1,8 +1,7 @@
 import { ElementHandle } from 'puppeteer-core'
 import { Job, Company, Location } from '../../database/models'
-import { differenceInMilliseconds, differenceInMonths } from 'date-fns'
 
-export const loadLinkedinUrl = (baseUrl: string, profession: string) =>
+export const loadLinkedinUrl = (baseUrl: string, profession?: string) =>
   `${baseUrl}?keywords=${profession}`
 
 export const save = async (

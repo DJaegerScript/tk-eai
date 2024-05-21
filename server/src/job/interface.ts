@@ -11,10 +11,11 @@ export interface ScrapeCallbackReturn {
 }
 
 export type ScrapeCallback = (
-  site: Site,
-  page: Page,
+  url: string,
   profession: string,
-  limitation: Date
+  limitation: Date,
+  site?: Site,
+  page?: Page
 ) => Promise<ScrapeCallbackReturn>
 
-export type LoadUrlCallback = (baseUrl: string, profession: string) => string
+export type LoadUrlCallback = (baseUrl: string, profession?: string) => string

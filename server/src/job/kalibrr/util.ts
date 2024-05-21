@@ -1,9 +1,8 @@
 import { ElementHandle } from 'puppeteer-core'
 import { Job, Company, Location } from '../../database/models'
-import { differenceInMilliseconds, differenceInMonths, sub } from 'date-fns'
-import { BASE_URLS } from '../constant'
+import { sub } from 'date-fns'
 
-export const loadKalibrrUrl = (baseUrl: string, profession: string) =>
+export const loadKalibrrUrl = (baseUrl: string, profession?: string) =>
   `${baseUrl}/${profession}`
 
 export const convertDate = (rawDate?: string) => {

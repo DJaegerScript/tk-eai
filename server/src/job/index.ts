@@ -12,9 +12,10 @@ const initSchedule = () => {
     const schedule = job.schedule(scheduleCron, async () => {
       const limitation = loadLimitation()
 
-      SITES.map(
-        async ({ site, loadUrlCallback, scrapeCallback }) =>
-          await scrape(site, loadUrlCallback, scrapeCallback, limitation)
+      SITES.map(async ({ site, loadUrlCallback, scrapeCallback, type }) =>
+        type === 'web'
+          ? await scrapeWeb(site, loadUrlCallback, scrapeCallback, limitation)
+          : await scrapeApi(site, loadUrlCallback, scrapeCallback, limitation)
       )
     })
 
@@ -24,7 +25,38 @@ const initSchedule = () => {
   }
 }
 
-const scrape = async (
+const scrapeApi = async (
+  site: Site,
+  loadUrlCallback: LoadUrlCallback,
+  scrapeCallback: ScrapeCallback,
+  limitation: Date
+) => {
+  console.log(`Scraping ${site.label}...`)
+  const startTime = Date.now()
+
+  const professions = loadProfession()
+
+  let scrappedJobs = 0
+  let savedJobs = 0
+  for (const profession of professions) {
+    console.log(`Scrapping ${profession} job in ${site.label}...`)
+    const url = loadUrlCallback(BASE_URLS[site.value as string])
+
+    try {
+      const result = await scrapeCallback(url, profession, limitation)
+      scrappedJobs += result.scrappedJobs
+      savedJobs += result.savedJobs
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  console.log(
+    `${savedJobs}/${scrappedJobs} scrapped jobs on ${site.label} were successfully saved with the execution time of ${(Date.now() - startTime) / 60000} minutes`
+  )
+}
+
+const scrapeWeb = async (
   site: Site,
   loadUrlCallback: LoadUrlCallback,
   scrapeCallback: ScrapeCallback,
@@ -42,20 +74,30 @@ const scrape = async (
       console.log(`Scrapping ${profession} job in ${site.label}...`)
       const url = loadUrlCallback(BASE_URLS[site.value as string], profession)
 
-      const { page, browser } = await initPuppeteer(url)
+      const { page, browser } = await initPuppeteer()
 
-      const result = await scrapeCallback(site, page, profession, limitation)
-      scrappedJobs += result.scrappedJobs
-      savedJobs += result.savedJobs
-
-      await browser.close()
+      try {
+        const result = await scrapeCallback(
+          url,
+          profession,
+          limitation,
+          site,
+          page
+        )
+        scrappedJobs += result.scrappedJobs
+        savedJobs += result.savedJobs
+      } catch (e) {
+        console.error(e)
+      } finally {
+        await browser.close()
+      }
     }
 
     console.log(
       `${savedJobs}/${scrappedJobs} scrapped jobs on ${site.label} were successfully saved with the execution time of ${(Date.now() - startTime) / 60000} minutes`
     )
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }
 

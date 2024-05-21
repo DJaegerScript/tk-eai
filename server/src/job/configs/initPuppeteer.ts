@@ -1,11 +1,11 @@
 import puppeteer, { Browser } from 'puppeteer-core'
 import { loadUserAgent } from './loadUserAgent'
 
-export const initPuppeteer = async (url: string) => {
+export const initPuppeteer = async () => {
   let browser: Browser
   if ((process.env.ENVIRONMENT || 'local') === 'local') {
     browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       executablePath: process.env.LOCAL_BROWSER,
     })
   } else {
@@ -20,10 +20,6 @@ export const initPuppeteer = async (url: string) => {
   const userAgent = loadUserAgent()
 
   await page.setUserAgent(userAgent)
-
-  await page.goto(url, {
-    waitUntil: 'domcontentloaded',
-  })
 
   return {
     page,
