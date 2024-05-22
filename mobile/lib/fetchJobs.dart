@@ -34,6 +34,7 @@ Future<Map<String, dynamic>> fetchJobsData(String title, String profession, Stri
   jobsDataResult["data"] = temp;
   jobsDataResult["hasNext"] = data["meta"]["hasNext"];
   jobsDataResult["hasPrev"] = data["meta"]["hasPrev"];
+  jobsDataResult["total"] = data["meta"]["total"];
 
   return jobsDataResult;
 }

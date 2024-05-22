@@ -28,6 +28,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
   String _date = "";
   String _title = "";
   int _page = 1;
+  int _totalJobs = 0;
 
   bool _hasNextPage = false;
   bool _hasPrevPage = false;
@@ -39,6 +40,7 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
       _jobsData = fetchedData["data"];
       _hasNextPage = fetchedData["hasNext"];
       _hasPrevPage = fetchedData["hasPrev"];
+      _totalJobs = fetchedData["total"];
       _isFilterVisible = false;
 
       if (_jobsData.isNotEmpty) {
@@ -304,6 +306,21 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 )
               ),
 
+              Visibility(
+                visible: _hasResult,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom:15, top:5, left:15, right:15),
+                  child: Text(
+                    "Ditemukan $_totalJobs pekerjaan terkait",
+                    style: const TextStyle(
+                      color: Colors.white, 
+                      fontSize: 15,
+                      //fontWeight: FontWeight.bold
+                    ),
+                  )
+                )
+              ),
+
               ..._jobsData.map((JobDataModel e) => Card(
                   color: Colors.white,
                   child: Padding(
@@ -355,6 +372,9 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                 children: [
                   Visibility(
                     visible: _hasPrevPage,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
                     child: IconButton(
                       color: Colors.white,
                       iconSize: 30,
@@ -401,6 +421,9 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
 
                   Visibility(
                     visible: _hasNextPage,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
                     child: IconButton(
                       color: Colors.white,
                       iconSize: 30,
