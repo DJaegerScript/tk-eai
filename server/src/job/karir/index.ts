@@ -52,8 +52,12 @@ const scrapeKarir = async (
 
       scrappedJobs += total_opportunities
 
-      savedJobs += await save(opportunities, limitation, profession)
-      if (total_opportunities === opportunities.length) {
+      if (!!opportunities) {
+        savedJobs += await save(opportunities, limitation, profession)
+        if (total_opportunities === opportunities.length) {
+          break
+        }
+      } else {
         break
       }
       offset += 100

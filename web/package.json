@@ -10,8 +10,7 @@
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
-    "lint": "yarn format && yarn check-format && yarn check-lint && yarn check-types",
-    "prepare": "husky install"
+    "lint": "yarn format && yarn check-format && yarn check-lint && yarn check-types"
   },
   "dependencies": {
     "@next/font": "^14.2.3",
@@ -29,7 +28,6 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.0.0",
-    "husky": "^8.0.0",
     "postcss": "^8",
     "prettier": "^3.0.3",
     "tailwindcss": "^3.4.1",

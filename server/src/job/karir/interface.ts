@@ -11,6 +11,6 @@ export interface KarirResponseInterface {
   message?: string
   data: {
     total_opportunities: 9
-    opportunities: KarirOpportunityInterface[]
+    opportunities?: KarirOpportunityInterface[]
   }
 }
