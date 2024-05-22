@@ -6,6 +6,8 @@ import 'dart:convert';
 Future<Map<String, dynamic>> fetchJobsData(String title, String profession, String location, String company, String date, String page) async {
   //List<JobDataModel> jobsDataResult = [];
   Map<String, dynamic> jobsDataResult = {};
+  if (location == "All") location = "";
+  if (company == "All") company = "";
   var response = await http.get(
     Uri.http("tk-eai-production.up.railway.app", "/", {
       "title":title,

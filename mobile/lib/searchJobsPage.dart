@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:job_scrapper/model/JobData.dart';
 import 'package:job_scrapper/fetchJobs.dart';
+import 'package:job_scrapper/fetchCompanies.dart';
+import 'package:job_scrapper/fetchLocations.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 class SearchJobsPage extends StatefulWidget {
   const SearchJobsPage({super.key, required this.jobTypeFilter});
@@ -16,10 +19,12 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
   final ScrollController _scrollController = ScrollController();
 
   List<JobDataModel> _jobsData = [];
+  List<String> _companiesList = ["All"];
+  List<String> _locationsList = ["All"];
 
   String _profession = "";
-  String _location = "";
-  String _company = "";
+  String _location = "All";
+  String _company = "All";
   String _date = "";
   String _title = "";
   int _page = 1;
@@ -72,6 +77,13 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
     if (widget.jobTypeFilter != "") {
       _profession = widget.jobTypeFilter;
     }
+    fetchLocationsData().then((value) => setState(() {
+      _locationsList.addAll(value);
+    }));
+
+    fetchCompaniesData().then((value) => setState(() {
+      _companiesList.addAll(value);
+    }));
   }
 
   Widget _filterForm() {
@@ -140,39 +152,50 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
 
           Padding(
             padding: const EdgeInsets.all(12),
-            child: TextFormField(
-              initialValue: _location,
-              decoration: InputDecoration(
-                labelText: "Lokasi",
-                fillColor: Colors.white,
-                enabledBorder: OutlineInputBorder(
+              child: DropdownSearch<String>(
+              popupProps: const PopupProps.menu(
+                  showSelectedItems: true,
+                  showSearchBox: true
+              ),
+              items: _locationsList,
+              dropdownDecoratorProps: DropDownDecoratorProps(
+                  dropdownSearchDecoration: InputDecoration(
+                      labelText: "Lokasi",
+                      enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 )
+                  ),
               ),
-              onChanged: (value) {_location = value;},
+              onChanged: (value) {_location = value!;},
+              selectedItem: _location,
           )),
 
           Padding(
             padding: const EdgeInsets.all(12),
-            child: TextFormField(
-              initialValue: _company,
-              decoration: InputDecoration(
-                labelText: "Perusahaan",
-                filled: true,
-                fillColor: Colors.white,
-                enabledBorder: OutlineInputBorder(
+              child: DropdownSearch<String>(
+              popupProps: const PopupProps.menu(
+                  showSelectedItems: true,
+                  showSearchBox: true
+              ),
+              items: _companiesList,
+              dropdownDecoratorProps: DropDownDecoratorProps(
+                  dropdownSearchDecoration: InputDecoration(
+                      labelText: "Perusahaan",
+                      enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(width: 1,color: Colors.black),
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 )
+                  ),
               ),
-              onChanged: (value) {_company = value;},
+              onChanged: (value) {_company = value!;},
+              selectedItem: _company,
           )),
 
           Padding(
