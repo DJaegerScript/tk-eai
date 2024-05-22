@@ -26,20 +26,18 @@ export default function Home() {
 
   const onSearch = async () => {
     try {
-      const result = await fetch(`https://tk-eai-production.up.railway.app/?${queryBuilder(query)}`, {
+     const result = await fetch(`/api${queryBuilder(query)}`, {
         method: "GET",
-        mode: "no-cors",
       });
-      console.log(result)
       const resultData = await result.json();
       console.log(resultData);
       setData(resultData);
     } catch (error) {
-      console.log("ERROR");
+      console.log("EROR");
       console.error(error);
     }
   };
-  
+
   return (
     <>
       <Navbar />
