@@ -8,8 +8,8 @@ export const ProfessionOptions = [
     label: 'Programmer',
   },
   {
-    value: 'Data Science',
-    label: 'Data Science',
+    value: 'Data',
+    label: 'Data',
   },
   {
     value: 'Network',
