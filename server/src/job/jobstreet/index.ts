@@ -34,12 +34,11 @@ const scrapeJobstreet = async (
       scrappedJobs += jobs.length
       for (const job of jobs) {
         try {
-          const rawUrl = await job.$eval(
+          const jobUrl = await job.$eval(
             'a[data-automation="jobTitle"]',
             (element) => element.href
           )
 
-          const jobUrl = `https://www.jobstreet.co.id${rawUrl}`
           const existingJobs = await Job.find({ url: jobUrl })
           if (existingJobs.length > 0) {
             continue
@@ -83,7 +82,7 @@ const scrapeJobstreet = async (
             location,
             company,
             source: 'jobstreet.co.id',
-            url: `https://www.jobstreet.co.id${jobUrl}`,
+            url: jobUrl,
           })
 
           await jobModel.save()
