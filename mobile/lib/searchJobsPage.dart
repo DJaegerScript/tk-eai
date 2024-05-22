@@ -395,7 +395,8 @@ class _SearchJobsPageState extends State<SearchJobsPage> {
                         height: 30,
                         child: TextFormField(
                           initialValue: _page.toString(),
-                          onChanged: (value) {
+                          textInputAction: TextInputAction.go,
+                          onFieldSubmitted: (value) {
                             if (value != "" && int.tryParse(value) != null) {
                               int temp = int.tryParse(value)!;
                               if(temp >= 1) {
