@@ -34,6 +34,7 @@ export const getAllJobs = async (req: Request, res: Response) => {
       hasNext: page < totalPages,
       hasPrev: page > 1,
       total: totalJob,
+      totalPages,
     },
   })
 }
