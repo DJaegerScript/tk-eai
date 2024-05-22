@@ -3,7 +3,7 @@ import { getAllJobs, getCompanies, getLocations } from './job.handler'
 import cors from 'cors'
 
 export const initHandler = (app: Express) => {
-  app.use(cors())
+  app.use(cors({ origin: 'http://localhost:300, https://tk-eai.vercel.app' }))
 
   app.get('/', getAllJobs)
   app.get('/companies', getCompanies)
