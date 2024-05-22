@@ -1,30 +1,24 @@
-import { QueryInterface } from "./model";
+import { QueryInterface } from './model';
 
 export function queryBuilder(data: QueryInterface): string {
-  console.log(data)
-  let res = "?";
+  let res = `?page=${data.page}`;
   if (data.title.length > 0) {
     data.title.forEach((str) => {
-      res = `${res}title=${str}&`;
+      res = `${res}&title=${str}`;
     });
   }
   if (data.profession) {
-    res = `${res}professio=${data.profession}&`;
+    res = `${res}&profession=${data.profession}`;
   }
-  if (data.location.length > 0) {
-    data.location.forEach((str) => {
-      res = `${res}location=${str}&`;
-    });
+  if (data.location) {
+    res = `${res}&location=${data.location}`;
   }
-  if (data.company.length > 0) {
-    data.company.forEach((str) => {
-      res = `${res}company=${str}&`;
-    });
+  if (data.company) {
+    res = `${res}&company=${data.company}`;
   }
   if (data.date) {
-    res = `${res}date=${data.date}&`;
+    res = `${res}&date=${data.date}`;
   }
-  res = res.substring(0, res.length - 1)
-  console.log(res)
+
   return res;
 }

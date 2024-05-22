@@ -23,17 +23,16 @@ export const getAllJobs = async (req: Request, res: Response) => {
   }
 
   const jobs = await Job.find(filter, null, { skip, limit: LIMIT })
-  const aggregation = await Job.aggregate().count('*')
-  const totalJob = aggregation.length > 0 ? aggregation[0]['*'] : 0
+  const total = await Job.find(filter).countDocuments()
 
-  const totalPages = Math.ceil(totalJob / LIMIT)
+  const totalPages = Math.ceil(total / LIMIT)
 
   res.json({
     data: jobs,
     meta: {
       hasNext: page < totalPages,
       hasPrev: page > 1,
-      total: totalJob,
+      total,
       totalPages,
     },
   })
