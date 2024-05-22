@@ -33,6 +33,7 @@ export const getAllJobs = async (req: Request, res: Response) => {
     meta: {
       hasNext: page < totalPages,
       hasPrev: page > 1,
+      total: totalJob,
     },
   })
 }
